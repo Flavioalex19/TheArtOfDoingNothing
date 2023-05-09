@@ -9,12 +9,11 @@ public class Interactable : MonoBehaviour
     [Header("Variables")]
     [Tooltip("Points that the player will reveive from this interaction")]
     [SerializeField] protected float _pointsSent;
-    [SerializeField] protected float _cooldownTimerReset;
-    protected float _cooldownTimer;
     [Tooltip("Total numbers of interactions that the player can have")]
     [SerializeField] protected int _numberOfInteractions;
     [SerializeField] protected int _animIndex;
     bool _canSendPoints = false;
+    public bool _hasCompleted = false;
     protected GameObject cc_player;
     #endregion
 
@@ -24,7 +23,6 @@ public class Interactable : MonoBehaviour
     {
         gm_gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
-        _cooldownTimer = _cooldownTimerReset;
     }
 
     private void Update()
@@ -39,10 +37,22 @@ public class Interactable : MonoBehaviour
         {
             cc_player = other.gameObject;
             other.GetComponent<PlayerInput>().SetCanInteract(true);
+
+            
             //cc_player.GetComponent<PlayerManager>()._playerStates = (PlayerStates)_animIndex;
         }
     }
-
+    private void OnTriggerStay(Collider other)
+    {
+        if (_hasCompleted == false)
+        {
+            other.GetComponent<PlayerInput>().SetCanInteract(true);
+        }
+        else
+        {
+            other.GetComponent<PlayerInput>().SetCanInteract(false);
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         cc_player = null;
@@ -54,16 +64,23 @@ public class Interactable : MonoBehaviour
     {
         if (cc_player != null)
         {
-            if (cc_player.GetComponent<PlayerInput>().GetHasInteracted())
+            if (_hasCompleted == false)
             {
-                cc_player.GetComponent<PlayerManager>()._myStates = (PlayerStates)_animIndex;
-                if (_canSendPoints == false)
+                if (cc_player.GetComponent<PlayerInput>().GetHasInteracted())
                 {
-                    gm_gameManager.AddToTotalPoints(_pointsSent);
-                    _canSendPoints=true;
+                    cc_player.GetComponent<PlayerManager>()._myStates = (PlayerStates)_animIndex;
+                    if (_canSendPoints == false)
+                    {
+                        gm_gameManager.AddToTotalPoints(_pointsSent);
+                        _hasCompleted = true;
+                        _canSendPoints = true;
+                    }
+
                 }
-                
             }
+            
+
+
         }
     }
 
