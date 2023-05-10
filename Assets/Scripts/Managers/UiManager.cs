@@ -15,8 +15,9 @@ public class UiManager : MonoBehaviour
     [Header("Interaction Text")]
     PlayerInput pi_playerInput;
     [SerializeField]Animator ui_textAnimator;
-    
     #endregion
+    [Header("Points Text")]
+    [SerializeField] TextMeshProUGUI ui_currentPointsText;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,13 @@ public class UiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Text Update
         ui_gm_GameHour.text = gm_gameManager.GetGameHour().ToString();
+        ui_currentPointsText.text = gm_gameManager.GetTotalPoints().ToString();
+        #endregion
+
+        #region UI Animations Update
         ui_textAnimator.SetBool("isOn", pi_playerInput.GetCanInteract());
+        #endregion
     }
 }

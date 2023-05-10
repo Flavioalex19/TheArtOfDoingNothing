@@ -15,6 +15,7 @@ public class Interactable : MonoBehaviour
     bool _canSendPoints = false;
     public bool _hasCompleted = false;
     protected GameObject cc_player;
+    protected TaskManager tg_taskManager;
     #endregion
 
     protected GameManager gm_gameManager;
@@ -22,6 +23,7 @@ public class Interactable : MonoBehaviour
     private void Start()
     {
         gm_gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        tg_taskManager = GameObject.Find("Task Manager").GetComponent<TaskManager>();
 
     }
 
@@ -60,6 +62,11 @@ public class Interactable : MonoBehaviour
         _canSendPoints = false;
     }
 
+    public bool GetHasCompleted()
+    {
+        return _hasCompleted;
+    }
+
     void Action()
     {
         if (cc_player != null)
@@ -72,6 +79,7 @@ public class Interactable : MonoBehaviour
                     if (_canSendPoints == false)
                     {
                         gm_gameManager.AddToTotalPoints(_pointsSent);
+                        tg_taskManager.SetTaskConcludedFromRoomIndex();
                         _hasCompleted = true;
                         _canSendPoints = true;
                     }
@@ -83,5 +91,7 @@ public class Interactable : MonoBehaviour
 
         }
     }
+
+
 
 }
