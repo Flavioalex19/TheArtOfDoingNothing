@@ -43,6 +43,10 @@ public class GameManager : MonoBehaviour
     }
 
     #region Get & Set
+    public int GetGameHour()
+    {
+        return _gameHour;
+    }
     public float GetTotalPoints()
     {
         return _totalPoints;

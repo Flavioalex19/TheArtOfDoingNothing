@@ -26,6 +26,7 @@ public class UiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ui_gm_GameHour.text = gm_gameManager.GetGameHour().ToString();
         ui_textAnimator.SetBool("isOn", pi_playerInput.GetCanInteract());
     }
 }

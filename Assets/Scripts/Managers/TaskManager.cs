@@ -5,13 +5,13 @@ using UnityEngine;
 public class TaskManager : MonoBehaviour
 {
 
-    public List<GameObject> obj_TaskList = new List<GameObject>();
+    public List<GameObject> obj_TaskInteractableList = new List<GameObject>();//List of interactable objects
 
     private void Start()
     {
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Interactable"))
         {
-            obj_TaskList.Add(obj);
+            obj_TaskInteractableList.Add(obj);
         }
     }
 }
