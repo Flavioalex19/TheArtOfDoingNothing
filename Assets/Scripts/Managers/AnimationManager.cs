@@ -24,6 +24,7 @@ public class AnimationManager : MonoBehaviour
     {
         cc_animator.SetFloat("Forward", cc_player._forwardAmount);
         cc_animator.SetBool("inAction", cc_input.GetHasInteracted());
-        cc_animator.SetFloat("Action", (float)playerManager._myStates);
+        cc_animator.SetInteger("Action", (int)playerManager._myStates);
+
     }
 }

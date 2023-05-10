@@ -11,7 +11,8 @@ public enum PlayerStates
     Studying,
     Cooking,
     Eating,
-    Sleeping
+    Sleeping,
+    Watching,
 }
 
 public class PlayerManager : MonoBehaviour
@@ -45,16 +46,7 @@ public class PlayerManager : MonoBehaviour
                 _activityDurationTimer = _activityDurationTimerReset;
                 break;
             case PlayerStates.Dancing:
-                if (_activityDurationTimer > 0)
-                {
-                    _activityDurationTimer -= Time.deltaTime;
-                }
-                else
-                {
-                    _activityDurationTimer = _activityDurationTimerReset;
-                    _myStates = PlayerStates.None;
-
-                }
+                Activity();
                 break;
             case PlayerStates.Playing:
                 Activity();
@@ -63,8 +55,13 @@ public class PlayerManager : MonoBehaviour
                 Activity();
                 break;
             case PlayerStates.Cooking:
+                Activity();
                 break;
             case PlayerStates.Sleeping:
+                Activity();
+                break;
+            case PlayerStates.Watching:
+                Activity();
                 break;
             default: 
                 break;
