@@ -10,10 +10,15 @@ public class Interactable : MonoBehaviour
     [Tooltip("Points that the player will reveive from this interaction")]
     [SerializeField] protected float _pointsSent;
     [Tooltip("Total numbers of interactions that the player can have")]
-    [SerializeField] protected int _numberOfInteractions;
+    [SerializeField] protected float _bonusTime;
     [SerializeField] protected int _animIndex;
-    bool _canSendPoints = false;
+    protected bool _canSendPoints = false;
     public bool _hasCompleted = false;
+
+    public bool _hasAStep = false;//if the interactable has more than 1 step to be completed
+    public bool _canProgress = false;
+    [SerializeField] int _progressItemIndex;
+
     protected GameObject cc_player;
     protected TaskManager tg_taskManager;
     #endregion
@@ -29,8 +34,15 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
-        Action();
         
+        if (_hasAStep)
+        {
+            StepAction();
+        }
+        else Action();
+
+
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,6 +58,7 @@ public class Interactable : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
+        CheckItem();
         if (_hasCompleted == false)
         {
             other.GetComponent<PlayerInput>().SetCanInteract(true);
@@ -53,12 +66,14 @@ public class Interactable : MonoBehaviour
         else
         {
             other.GetComponent<PlayerInput>().SetCanInteract(false);
+            
         }
     }
     private void OnTriggerExit(Collider other)
     {
         cc_player = null;
         other.GetComponent<PlayerInput>().SetCanInteract(false);
+        other.GetComponent<PlayerInput>().SetHasInteracted(false);
         _canSendPoints = false;
     }
 
@@ -67,7 +82,7 @@ public class Interactable : MonoBehaviour
         return _hasCompleted;
     }
 
-    void Action()
+    protected virtual void Action()
     {
         if (cc_player != null)
         {
@@ -78,7 +93,9 @@ public class Interactable : MonoBehaviour
                     cc_player.GetComponent<PlayerManager>()._myStates = (PlayerStates)_animIndex;
                     if (_canSendPoints == false)
                     {
+                        
                         gm_gameManager.AddToTotalPoints(_pointsSent);
+                        gm_gameManager.EarnSecondsByActivity(_bonusTime);
                         tg_taskManager.SetTaskConcludedFromRoomIndex();
                         _hasCompleted = true;
                         _canSendPoints = true;
@@ -86,12 +103,32 @@ public class Interactable : MonoBehaviour
 
                 }
             }
-            
-
 
         }
     }
 
+    public void StepAction()
+    {
+        if (_canProgress)
+        {
+            Action();
+            print("Quest is finished");
+            _canProgress = false;
+            
+        }
+    }
+    public void CheckItem()
+    {
+        if (cc_player.GetComponent<PlayerManager>().GetItemIndex()>0 && _hasAStep == true)
+        {
+            if (_progressItemIndex == cc_player.GetComponent<PlayerManager>().GetItemIndex())
+            {
+                _canProgress = true;
+                print("Pass");
+            }
+        }
+        else cc_player.GetComponent<PlayerInput>().SetHasInteracted(false);
 
 
+    }
 }

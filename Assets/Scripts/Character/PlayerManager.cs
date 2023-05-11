@@ -24,6 +24,8 @@ public class PlayerManager : MonoBehaviour
 
     public string _stateName;
 
+    public int _itemIndex;
+
     PlayerInput _playerInput;
 
     // Start is called before the first frame update
@@ -68,7 +70,15 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-   
+   public int GetItemIndex()
+    {
+        return _itemIndex;
+    }
+    
+    public void SetItemIndex(int item)
+    {
+        _itemIndex = item;
+    }
     void Activity()
     {
         if (_activityDurationTimer > 1)
@@ -77,6 +87,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
+            if(_itemIndex>0) _itemIndex = 0;//the item has been used
             _playerInput.SetHasInteracted(false);
             _myStates = PlayerStates.None;
 

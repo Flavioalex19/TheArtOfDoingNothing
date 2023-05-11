@@ -51,11 +51,19 @@ public class GameManager : MonoBehaviour
     {
         return _totalPoints;
     }
+    public float GetGameTimer()
+    {
+        return _gameTimer;
+    }
 
     #endregion
     public void AddToTotalPoints(float totalPoints)
     {
         _totalPoints += totalPoints;
+    }
+    public void EarnSecondsByActivity(float bonusTime)
+    {
+        _gameTimer += bonusTime;
     }
     void GameProgressionTime()
     {

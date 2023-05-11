@@ -67,6 +67,8 @@
     <Compile Include="Assets\Scripts\Camera\IsoCamera.cs" />
     <Compile Include="Assets\Scripts\Character\Movement.cs" />
     <Compile Include="Assets\Scripts\Managers\TaskManager.cs" />
+    <Compile Include="Assets\Scripts\Interactables\tgFridge.cs" />
+    <Compile Include="Assets\Scripts\Interactables\Item.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

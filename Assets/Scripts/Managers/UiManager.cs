@@ -10,6 +10,7 @@ public class UiManager : MonoBehaviour
     #region Game Manager UI
     GameManager gm_gameManager;
     [SerializeField] TextMeshProUGUI ui_gm_GameHour;
+    [SerializeField] TextMeshProUGUI ui_gm_GameMinutes;
     #endregion
     #region Interaction Text
     [Header("Interaction Text")]
@@ -29,6 +30,7 @@ public class UiManager : MonoBehaviour
     {
         #region Text Update
         ui_gm_GameHour.text = gm_gameManager.GetGameHour().ToString();
+        ui_gm_GameMinutes.text = gm_gameManager.GetGameTimer().ToString("F0");
         ui_currentPointsText.text = gm_gameManager.GetTotalPoints().ToString();
         #endregion
 
