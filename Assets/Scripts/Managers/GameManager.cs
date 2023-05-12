@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float _gameTimer;
     [Tooltip("Seconds tha will be needed to make 1h in the game")]
     [SerializeField] float _gameSecondsForAnHour;
+    [SerializeField] float _gameTimeMultiplier = 1f;
     #endregion
     #region Points Variables
     [Header("Points Variables")]
@@ -55,6 +56,14 @@ public class GameManager : MonoBehaviour
     {
         return _gameTimer;
     }
+    public float GetGameTimeMultiplier()
+    {
+        return _gameTimeMultiplier;
+    }
+    public void SetGameTimeMultiplier(float multiplier)
+    {
+        _gameTimeMultiplier += multiplier;
+    }
 
     #endregion
     public void AddToTotalPoints(float totalPoints)
@@ -67,7 +76,7 @@ public class GameManager : MonoBehaviour
     }
     void GameProgressionTime()
     {
-        _gameTimer += Time.deltaTime;
+        _gameTimer += Time.deltaTime * _gameTimeMultiplier;
 
         if (_gameTimer > _gameSecondsForAnHour)
         {

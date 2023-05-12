@@ -7,7 +7,7 @@ public class TaskManager : MonoBehaviour
 
     public List<GameObject> obj_TaskInteractableList = new List<GameObject>();//List of interactable objects
 
-    public int _taskConcludedFromRoomIndex = 0;//how many task are completed from current room
+    public int _taskConcludedFromRoomCount = 0;//how many task are completed from current room
 
 
     private void Start()
@@ -24,13 +24,14 @@ public class TaskManager : MonoBehaviour
     }
 
     #region Get & Set
-    public int GetTaskConcludedFromRoomIndex()
+    public int GetTaskConcludedFromRoomCount()
     {
-        return _taskConcludedFromRoomIndex;
+        return _taskConcludedFromRoomCount;
     }
-    public void SetTaskConcludedFromRoomIndex()
+    public void SetTaskConcludedFromRoomCount()
     {
-        _taskConcludedFromRoomIndex++;
+        _taskConcludedFromRoomCount++;
     }
+    
     #endregion
 }

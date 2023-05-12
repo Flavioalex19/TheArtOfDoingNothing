@@ -58,8 +58,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Character\PlayerManager.cs" />
+    <Compile Include="Assets\Scripts\Camera\UiLookAt.cs" />
     <Compile Include="Assets\Scripts\Interactables\TgVideogame.cs" />
+    <Compile Include="Assets\Scripts\Interactables\tgFridge.cs" />
     <Compile Include="Assets\Scripts\Character\PlayerInput.cs" />
+    <Compile Include="Assets\Scripts\Interactables\Item.cs" />
     <Compile Include="Assets\Scripts\Interactables\Interactable.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Managers\UiManager.cs" />
@@ -67,8 +70,6 @@
     <Compile Include="Assets\Scripts\Camera\IsoCamera.cs" />
     <Compile Include="Assets\Scripts\Character\Movement.cs" />
     <Compile Include="Assets\Scripts\Managers\TaskManager.cs" />
-    <Compile Include="Assets\Scripts\Interactables\tgFridge.cs" />
-    <Compile Include="Assets\Scripts\Interactables\Item.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
